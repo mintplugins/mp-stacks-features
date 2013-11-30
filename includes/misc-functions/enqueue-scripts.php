@@ -28,8 +28,8 @@
 function mp_stacks_features_enqueue_scripts(){
 	
 	//Enqueue Font Awesome CSS
-	wp_enqueue_style( 'mp_stacks_features_icon_font', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
-	
+	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+		
 	//Enqueue features CSS
 	wp_enqueue_style( 'mp_stacks_features_css', plugins_url( 'css/features.css', dirname( __FILE__ ) ) );
 
@@ -48,7 +48,10 @@ add_action( 'wp_enqueue_scripts', 'mp_stacks_features_enqueue_scripts' );
 function mp_stacks_features_admin_enqueue_scripts(){
 	
 	//Enqueue Font Awesome CSS
-	wp_enqueue_style( 'mp_stacks_features_icon_font', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	
+	//Enqueue Admin Features CSS
+	wp_enqueue_style( 'mp_stacks_features_css', plugins_url( 'css/admin-features.css', dirname( __FILE__ ) ) );
 
 }
  

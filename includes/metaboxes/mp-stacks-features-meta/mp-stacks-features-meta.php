@@ -39,9 +39,6 @@ function mp_stacks_features_create_meta_box(){
 	
 	preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
 	
-	//echo plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( dirname( __FILE__ ) ) );
-
-	
 	$icons = array();
 
 	foreach($matches as $match){
