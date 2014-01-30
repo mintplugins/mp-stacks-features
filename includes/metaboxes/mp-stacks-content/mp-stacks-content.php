@@ -21,16 +21,16 @@
  * @param    array $args See link for description.
  * @return   void
  */
-function mp_stacks_features_add_media_type( $mp_stacks_media_items_array ){	
+function mp_stacks_features_add_media_type( $mp_stacks_content_types_array ){	
 	
 	/**
 	 * Array which stores all info about the options within the metabox
 	 *
 	 */
-	$mp_stacks_media_items_array[0]['field_select_values']['features'] = 'Features';
-	$mp_stacks_media_items_array[1]['field_select_values']['features'] = 'Features';
+	$mp_stacks_content_types_array[0]['field_select_values']['features'] = 'Features';
+	$mp_stacks_content_types_array[1]['field_select_values']['features'] = 'Features';
 	
-	return $mp_stacks_media_items_array;
+	return $mp_stacks_content_types_array;
 
 }
-add_filter('mp_stacks_media_items_array', 'mp_stacks_features_add_media_type');
+add_filter('mp_stacks_content_types_array', 'mp_stacks_features_add_media_type');

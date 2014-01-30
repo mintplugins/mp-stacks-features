@@ -28,7 +28,7 @@ function mp_stacks_features_create_meta_box(){
 	 */
 	$mp_stacks_features_add_meta_box = array(
 		'metabox_id' => 'mp_stacks_features_metabox', 
-		'metabox_title' => __( '"Features"  - Media Type', 'mp_stacks_features'), 
+		'metabox_title' => __( '"Features" Content-Type', 'mp_stacks_features'), 
 		'metabox_posttype' => 'mp_brick', 
 		'metabox_context' => 'advanced', 
 		'metabox_priority' => 'low' 

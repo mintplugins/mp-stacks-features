@@ -2,8 +2,8 @@
 /*
 Plugin Name: MP Stacks + Features
 Plugin URI: http://moveplugins.com
-Description: Media Type Add-on for MP Stacks which displays "features" about an item in a brick.
-Version: beta1.0.0.4
+Description: Content-Type Add-on for MP Stacks which displays "features" about an item in a brick.
+Version: beta1.0.0.5
 Author: Move Plugins
 Author URI: http://moveplugins.com
 Text Domain: mp_stacks_features
@@ -141,7 +141,7 @@ function mp_stacks_features_include_files(){
 		/**
 		 * Media Filters for features
 		 */
-		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/misc-functions/media-filters.php' );
+		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/misc-functions/content-filters.php' );
 		
 		/**
 		 * Metabox for features
@@ -149,9 +149,9 @@ function mp_stacks_features_include_files(){
 		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/metaboxes/mp-stacks-features-meta/mp-stacks-features-meta.php' );
 		
 		/**
-		 * Metabox which adds features as a media type
+		 * Metabox which adds features as a content type
 		 */
-		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/metaboxes/mp-stacks-media/mp-stacks-media.php' );
+		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/metaboxes/mp-stacks-content/mp-stacks-content.php' );
 				
 	}
 }
