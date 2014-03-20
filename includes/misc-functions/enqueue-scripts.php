@@ -52,6 +52,9 @@ function mp_stacks_features_admin_enqueue_scripts(){
 	
 	//Enqueue Admin Features CSS
 	wp_enqueue_style( 'mp_stacks_features_css', plugins_url( 'css/admin-features.css', dirname( __FILE__ ) ) );
+	
+	//Enqueue gallery JS
+	wp_enqueue_script( 'mp_stacks_features_js', plugins_url( 'js/features-admin.js', dirname( __FILE__ ) ), array('jquery') );
 
 }
  

@@ -34,6 +34,10 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 		$features_per_row = get_post_meta($post_id, 'features_per_row', true);
 		$features_per_row = empty( $features_per_row ) ? '2' : $features_per_row;
 		
+		//Features icon size
+		$feature_icon_size = get_post_meta($post_id, 'feature_icon_size', true);
+		$feature_icon_size = empty( $feature_icon_size ) ? '30' : $feature_icon_size;
+		
 		//Feature alignment
 		$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
 		$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
@@ -48,6 +52,17 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 				width:' . (100/$features_per_row) .'%;
 				text-align:' . $feature_alignment . ';
+			}
+			.mp-stacks-feature a,
+			.mp-stacks-feature a:hover
+			{ 
+				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
+			}
+			.mp-stacks-features-icon{
+				width:' . $feature_icon_size . 'px;
+			}
+			.mp-stacks-features-icon:before {
+				font-size:' . $feature_icon_size . 'px;
 			}
 			@media screen and (max-width: 600px){
 				.mp-stacks-feature{ 
@@ -67,18 +82,39 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 			foreach( $features_repeaters as $features_repeater ){
 							
 					$features_output .= '<div class="mp-stacks-feature">';
-					
-						$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
-							
-							$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
-							
-						$features_output .= '</div>';
 						
+						$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
+						
+							$features_output .= '<div class="mp-stacks-features-icon">';
+								
+								//If we should use an image as the featured icon
+								if ( $features_repeater['feature_icon_type'] == 'feature_image' ){
+									$features_output .= '<img src="' . $features_repeater['feature_image'] . '" width="100%"/>';
+								}
+								//If we should use an icon from the icon font
+								else{
+									
+									$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
+									
+										$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
+									
+									$features_output .= '</div>';
+								
+								}
+								
+							$features_output .= '</div>';
+						
+						$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+												
 						$features_output .= $feature_alignment == 'center' ? '<div class="mp-stacks-features-clearedfix"></div>' : NULL;
 						
 						$features_output .= '<div class="mp-stacks-features-title">';
 						
-							$features_output .= $features_repeater['feature_title'];
+							$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
+						
+								$features_output .= $features_repeater['feature_title'];
+								
+							$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
 							
 						$features_output .= '</div>';
 						
@@ -86,7 +122,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 						$features_output .= '<div class="mp-stacks-features-clearedfix"></div>';
 						
 						$features_output .= '<div class="mp-stacks-features-text">';
-						
+														
 							$features_output .= $features_repeater['feature_text'];
 								
 						$features_output .= '</div>';

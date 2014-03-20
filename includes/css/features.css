@@ -25,6 +25,15 @@
 }
 .mp-stacks-features-icon{
 	display: inline-block;
+	vertical-align:top;
+}
+.mp-stacks-feature a{
+	text-decoration:none;
+}
+.mp-stacks-feature .mp-stacks-features-icon img{
+	margin:0px;	
+	display:inline-block;
+	vertical-align: top;
 }
 .mp-stacks-features-title{
 	padding-top: 10px;
