@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
 	
 	mp_features_reset_icon_types();
 		
-	$("[class$='feature_icon_typeBBBBB'] select").change(function() {
+	$(document).on('change', "[class$='feature_icon_typeBBBBB'] select", function() {
 		mp_features_reset_icon_types();
 	});
 	
