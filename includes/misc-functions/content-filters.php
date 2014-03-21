@@ -108,24 +108,34 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 												
 						$features_output .= $feature_alignment == 'center' ? '<div class="mp-stacks-features-clearedfix"></div>' : NULL;
 						
-						$features_output .= '<div class="mp-stacks-features-title">';
-						
-							$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
-						
-								$features_output .= $features_repeater['feature_title'];
-								
-							$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+						//If there's a title
+						if ( !empty($features_repeater['feature_title']) ){
 							
-						$features_output .= '</div>';
-						
-						//Add clear div to bump features below title and icon
-						$features_output .= '<div class="mp-stacks-features-clearedfix"></div>';
-						
-						$features_output .= '<div class="mp-stacks-features-text">';
-														
-							$features_output .= $features_repeater['feature_text'];
+							$features_output .= '<div class="mp-stacks-features-title">';
+							
+								$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
+							
+									$features_output .= $features_repeater['feature_title'];
+									
+								$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
 								
-						$features_output .= '</div>';
+							$features_output .= '</div>';
+							
+							//Add clear div to bump features below title and icon
+							$features_output .= '<div class="mp-stacks-features-clearedfix"></div>';
+						
+						}
+						
+						//If there's a description
+						if ( !empty($features_repeater['feature_title']) ){
+							
+							$features_output .= '<div class="mp-stacks-features-text">';
+															
+								$features_output .= $features_repeater['feature_text'];
+									
+							$features_output .= '</div>';
+							
+						}
 				
 					$features_output .= '</div>';
 					

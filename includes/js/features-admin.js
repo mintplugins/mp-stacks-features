@@ -18,11 +18,17 @@ jQuery(document).ready(function($){
 				//Hide the the image field
 				$(this).parent().parent().parent().find("[class$='feature_imageBBBBB']").css('display', 'none');
 			}
-			else{
+			else if( icon_type == 'feature_image' ){
 				//Hide the icon field
 				$(this).parent().parent().parent().find("[class$='feature_iconBBBBB']").css('display', 'none');
 				//Show the the image field
 				$(this).parent().parent().parent().find("[class$='feature_imageBBBBB']").css('display', 'block');
+			}
+			else{
+				//Hide the icon field
+				$(this).parent().parent().parent().find("[class$='feature_iconBBBBB']").css('display', 'none');
+				//Show the the image field
+				$(this).parent().parent().parent().find("[class$='feature_imageBBBBB']").css('display', 'none');
 			}
 						
 		});
