@@ -3,7 +3,7 @@
 Plugin Name: MP Stacks + Features
 Plugin URI: http://moveplugins.com
 Description: Content-Type Add-on for MP Stacks which displays "features" about an item in a brick.
-Version: beta1.0.1.1
+Version: beta1.0.1.2
 Author: Move Plugins
 Author URI: http://moveplugins.com
 Text Domain: mp_stacks_features

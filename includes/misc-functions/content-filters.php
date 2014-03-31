@@ -48,24 +48,24 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 		//Get Features Output
 		$features_output .= '
 		<style scoped>
-			.mp-stacks-feature{ 
+			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
 				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 				width:' . (100/$features_per_row) .'%;
 				text-align:' . $feature_alignment . ';
 			}
-			.mp-stacks-feature a,
-			.mp-stacks-feature a:hover
+			#mp-brick-' . $post_id . ' .mp-stacks-feature a,
+			#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
 			{ 
 				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 			}
-			.mp-stacks-features-icon{
+			#mp-brick-' . $post_id . ' .mp-stacks-features-icon{
 				width:' . $feature_icon_size . 'px;
 			}
-			.mp-stacks-features-icon:before {
+			#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {
 				font-size:' . $feature_icon_size . 'px;
 			}
 			@media screen and (max-width: 600px){
-				.mp-stacks-feature{ 
+				#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
 					width:' . '100%;
 				}
 			}';
