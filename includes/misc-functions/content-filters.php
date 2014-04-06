@@ -82,8 +82,26 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 			foreach( $features_repeaters as $features_repeater ){
 							
 					$features_output .= '<div class="mp-stacks-feature">';
+		
+						//If the user has saved an open type
+						if ( !empty($features_repeater['feature_icon_link_type'])){
+							
+							//Set Image Open Type for Lightbox
+							if ( $features_repeater['feature_icon_link_type'] == 'lightbox'){
+								$class_name = ' mp-stacks-lightbox-link'; 
+								$target = '_parent';
+							}
+							else if($features_repeater['feature_icon_link_type'] == 'blank'){
+								$target = '_blank';
+							}
+						}
+						//If they haven't saved an open type
+						else{
+							$class_name = '';	
+							$target = '_parent';
+						}
 						
-						$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
+						$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
 						
 							$features_output .= '<div class="mp-stacks-features-icon">';
 								
@@ -131,7 +149,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 							
 							$features_output .= '<div class="mp-stacks-features-text">';
 															
-								$features_output .= $features_repeater['feature_text'];
+								$features_output .= html_entity_decode($features_repeater['feature_text']);
 									
 							$features_output .= '</div>';
 							

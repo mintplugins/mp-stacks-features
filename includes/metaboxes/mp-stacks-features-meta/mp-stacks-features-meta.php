@@ -136,6 +136,15 @@ function mp_stacks_features_create_meta_box(){
 			'field_repeater' => 'mp_features_repeater'
 		),
 		array(
+			'field_id'			=> 'feature_icon_link_type',
+			'field_title' 	=> __( 'Feature Icon Link\'s Open Type', 'mp_stacks_features'),
+			'field_description' 	=> 'Optional: Enter a URL which should be visited when the icon is clicked.',
+			'field_type' 	=> 'select',
+			'field_value' => '',
+			'field_select_values' => array( 'lightbox' => __( 'Open in Lightbox', 'mp_stacks_features' ), 'parent' => __( 'Open in current Window/Tab', 'mp_stacks_features' ), 'blank' => __( 'Open in New Window/Tab', 'mp_stacks_features' ) ),
+			'field_repeater' => 'mp_features_repeater'
+		),
+		array(
 			'field_id'			=> 'feature_text',
 			'field_title' 	=> __( 'Feature Text (HTML Allowed)', 'mp_stacks_features'),
 			'field_description' 	=> 'Enter the text for this feature.',
