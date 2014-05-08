@@ -2,7 +2,3 @@
 .feature_icon{
 	font-size:30px;	
 }
-[class$='feature_iconBBBBB'],
-[class$='feature_imageBBBBB']{
-	display:none;	
-}

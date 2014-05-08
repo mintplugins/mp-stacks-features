@@ -14,23 +14,33 @@
  */
  
 /**
- * Add Features as a Media Type to the dropdown
+ * Add Features as a Content Type to the dropdown
  *
  * @since    1.0.0
  * @link     http://moveplugins.com/doc/
- * @param    array $args See link for description.
- * @return   void
+ * @param    array $mp_stacks_brick_rows_array The array used to generate the brick row metabox
+ * @return   array $mp_stacks_brick_rows_array
  */
-function mp_stacks_features_add_media_type( $mp_stacks_content_types_array ){	
+function mp_stacks_features_add_content_type( $mp_stacks_content_items_array ){	
 	
-	/**
-	 * Array which stores all info about the options within the metabox
-	 *
-	 */
-	$mp_stacks_content_types_array[0]['field_select_values']['features'] = 'Features';
-	$mp_stacks_content_types_array[1]['field_select_values']['features'] = 'Features';
+	$counter = 0;
+		
+	//Loop through each field in the incoming/outgoing array
+	foreach ( $mp_stacks_content_items_array as $content_type ){
 	
-	return $mp_stacks_content_types_array;
+		//If this field is a content-type selector	 - checked using stringendswith as seen here:
+		//http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+		if ( '_content_type' === "" || substr($content_type['field_id'], -strlen('_content_type')) === '_content_type' ){
+			
+			//Add "Features" to this selector
+			$mp_stacks_content_items_array[$counter]['field_select_values']['features'] = 'Features';
+		}
+		
+		$counter = $counter + 1;
+		
+	}
+	
+	return $mp_stacks_content_items_array;
 
 }
-add_filter('mp_stacks_content_types_array', 'mp_stacks_features_add_media_type');
+add_filter('mp_stacks_content_types_array', 'mp_stacks_features_add_content_type');

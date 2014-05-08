@@ -11,7 +11,67 @@
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
- 
+
+/**
+ * This function hooks to the brick css output. If it is supposed to be a 'feature', then it will add the css for those features to the brick's css
+ *
+ * @access   public
+ * @since    1.0.0
+ * @return   void
+ */
+function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
+				
+	//Get Features Metabox Repeater Array
+	$features_repeaters = get_post_meta($post_id, 'mp_features_repeater', true);
+	
+	//If no features have been set up, return
+	if ( empty( $features_repeaters ) ){
+		return $css_output;
+	}
+	
+	//Features per row
+	$features_per_row = get_post_meta($post_id, 'features_per_row', true);
+	$features_per_row = empty( $features_per_row ) ? '2' : $features_per_row;
+	
+	//Features icon size
+	$feature_icon_size = get_post_meta($post_id, 'feature_icon_size', true);
+	$feature_icon_size = empty( $feature_icon_size ) ? '30' : $feature_icon_size;
+	
+	//Feature alignment
+	$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
+	$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
+			
+	//Get Features Output
+	$css_features_output = '
+		#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
+			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
+			width:' . (100/$features_per_row) .'%;
+			text-align:' . $feature_alignment . ';
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-feature a,
+		#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
+		{ 
+			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-icon{
+			width:' . $feature_icon_size . 'px;
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {
+			font-size:' . $feature_icon_size . 'px;
+		}
+		@media screen and (max-width: 600px){
+			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
+				width:' . '100%;
+			}
+		}';
+		
+	$css_features_output .= $feature_alignment != 'left' ? NULL : '#mp-brick-' . $post_id . ' .mp-stacks-features-icon{ margin: 0px 10px 0px 0px; }';
+	
+	return $css_features_output . $css_output;
+		
+}
+add_filter('mp_brick_additional_css', 'mp_stacks_brick_content_output_css_features', 10, 3);
+
 /**
  * This function hooks to the brick output. If it is supposed to be a 'feature', then it will output the features
  *
@@ -45,34 +105,6 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 		//Get Features Output
 		$features_output = '<div class="mp-stacks-features">';
 		
-		//Get Features Output
-		$features_output .= '
-		<style scoped>
-			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
-				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
-				width:' . (100/$features_per_row) .'%;
-				text-align:' . $feature_alignment . ';
-			}
-			#mp-brick-' . $post_id . ' .mp-stacks-feature a,
-			#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
-			{ 
-				color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
-			}
-			#mp-brick-' . $post_id . ' .mp-stacks-features-icon{
-				width:' . $feature_icon_size . 'px;
-			}
-			#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {
-				font-size:' . $feature_icon_size . 'px;
-			}
-			@media screen and (max-width: 600px){
-				#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
-					width:' . '100%;
-				}
-			}';
-			
-			$features_output .= $feature_alignment != 'left' ? NULL : '.mp-stacks-features-icon{ margin: 0px 10px 0px 0px; }';
-		$features_output .= '</style>';
-		
 		//Set counter to 0
 		$counter = 1;
 		
@@ -89,10 +121,11 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 							//Set Image Open Type for Lightbox
 							if ( $features_repeater['feature_icon_link_type'] == 'lightbox'){
 								$class_name = ' mp-stacks-lightbox-link'; 
-								$target = '_parent';
+								$target = '';
 							}
 							else if($features_repeater['feature_icon_link_type'] == 'blank'){
 								$target = '_blank';
+								$class_name = '';	
 							}
 						}
 						//If they haven't saved an open type
@@ -131,7 +164,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 							
 							$features_output .= '<div class="mp-stacks-features-title">';
 							
-								$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link">' : NULL;
+								$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
 							
 									$features_output .= $features_repeater['feature_title'];
 									

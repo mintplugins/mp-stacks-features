@@ -28,11 +28,11 @@ if (!function_exists('mp_stacks_plugin_check')){
 				'plugin_name' => 'MP Stacks',
 				'plugin_message' => __('You require the MP Stacks plugin. Install it here.', 'mp_stacks_features'),
 				'plugin_filename' => 'mp-stacks.php',
-				'plugin_download_link' => 'http://moveplugins.com/stacks/mp-stacks/?downloadfile=true',
+				'plugin_download_link' => 'http://moveplugins.com/repo/mp-stacks/?downloadfile=true',
 				'plugin_info_link' => 'http://moveplugins.com/plugins/mp-stacks',
 				'plugin_group_install' => true,
 				'plugin_required' => true,
-				'plugin_wp_stacks' => true,
+				'plugin_wp_repo' => true,
 			)
 		);
 		

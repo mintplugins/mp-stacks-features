@@ -45,6 +45,18 @@ function mp_stacks_features_create_meta_box(){
 		$icons[$match[1]] = $match[1];
 	}	
 	
+	//If a stack id has been passed to the URL
+	if ( isset( $_GET['mp_stack_id'] ) ){
+				
+		//Get all the brick titles in this stack
+		$brick_titles_in_stack = mp_stacks_get_brick_titles_in_stack( $_GET['mp_stack_id'] );
+		
+	}
+	else{
+		
+		$brick_titles_in_stack = array();
+	}	
+	
 	/**
 	 * Array which stores all info about the options within the metabox
 	 *
@@ -131,8 +143,9 @@ function mp_stacks_features_create_meta_box(){
 			'field_id'			=> 'feature_icon_link',
 			'field_title' 	=> __( 'Feature Icon Link', 'mp_stacks_features'),
 			'field_description' 	=> 'Optional: Enter a URL which should be visited when the icon is clicked.',
-			'field_type' 	=> 'url',
+			'field_type' 	=> 'datalist',
 			'field_value' => '',
+			'field_select_values' => $brick_titles_in_stack,
 			'field_repeater' => 'mp_features_repeater'
 		),
 		array(
@@ -160,11 +173,14 @@ function mp_stacks_features_create_meta_box(){
 	 */
 	$mp_stacks_features_add_meta_box = has_filter('mp_stacks_features_meta_box_array') ? apply_filters( 'mp_stacks_features_meta_box_array', $mp_stacks_features_add_meta_box) : $mp_stacks_features_add_meta_box;
 	
+	//Globalize the and populate mp_stacks_features_items_array (do this before filter hooks are run)
+	global $global_mp_stacks_features_items_array;
+	$global_mp_stacks_features_items_array = $mp_stacks_features_items_array;
+	
 	/**
 	 * Custom filter to allow for add on plugins to hook in their own extra fields 
 	 */
 	$mp_stacks_features_items_array = has_filter('mp_stacks_features_items_array') ? apply_filters( 'mp_stacks_features_items_array', $mp_stacks_features_items_array) : $mp_stacks_features_items_array;
-	
 	
 	/**
 	 * Create Metabox class
@@ -172,4 +188,29 @@ function mp_stacks_features_create_meta_box(){
 	global $mp_stacks_features_meta_box;
 	$mp_stacks_features_meta_box = new MP_CORE_Metabox($mp_stacks_features_add_meta_box, $mp_stacks_features_items_array);
 }
-add_action('plugins_loaded', 'mp_stacks_features_create_meta_box');
+add_action('wp_loaded', 'mp_stacks_features_create_meta_box');
+
+/**
+ * Add these options to the all_mp_stacks_meta array for MP Stacks
+ */
+function mp_stacks_features_add_all_mp_stacks_meta( $all_mp_stacks_meta ){
+	
+	global $global_mp_stacks_features_items_array;
+	
+	//If mp_stack_features hasn't been added to the all plugins options array yet
+	if ( empty( $all_mp_stacks_meta['mp_stacks_features'] ) ){
+		
+		//Add it. For the title we use plugin_title_4325819681 so that if a meta key happens to be 'plugin'title' they don't get lost. 
+		//4325819681 is just a random string to make this unique
+		$all_mp_stacks_meta['mp_stacks_features'] = array('plugin_title_4325819681' => 'MP Stacks + Features');
+	}
+	
+	//Loop through each field and add it to the mp_stacks_features array of options
+	foreach ( $global_mp_stacks_features_items_array as $meta_option ){
+		//Add all of these options to the mp_stacks_features options array
+		array_push( $all_mp_stacks_meta['mp_stacks_features'], $meta_option );	
+	}
+	
+	return $all_mp_stacks_meta;
+}
+add_filter( 'mp_stacks_all_mp_stacks_meta', 'mp_stacks_features_add_all_mp_stacks_meta' );

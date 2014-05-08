@@ -4,7 +4,8 @@
 .mp-stacks-feature{
 	display:inline-block;
 	text-align:left;
-	float:left;
+	vertical-align: top;
+	margin:0px auto;
 	padding:20px;	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
