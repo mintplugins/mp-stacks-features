@@ -2,13 +2,13 @@
 /**
  * This page contains functions for modifying the metabox for features as a media type
  *
- * @link http://moveplugins.com/doc/
+ * @link http://mintplugins.com/doc/
  * @since 1.0.0
  *
  * @package    MP Stacks Features
  * @subpackage Functions
  *
- * @copyright   Copyright (c) 2013, Move Plugins
+ * @copyright   Copyright (c) 2014, Mint Plugins
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author      Philip Johnston
  */
@@ -17,7 +17,7 @@
  * Add Features as a Content Type to the dropdown
  *
  * @since    1.0.0
- * @link     http://moveplugins.com/doc/
+ * @link     http://mintplugins.com/doc/
  * @param    array $mp_stacks_brick_rows_array The array used to generate the brick row metabox
  * @return   array $mp_stacks_brick_rows_array
  */

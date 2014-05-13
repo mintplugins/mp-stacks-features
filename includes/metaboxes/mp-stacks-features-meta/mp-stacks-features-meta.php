@@ -2,13 +2,13 @@
 /**
  * This page contains functions for modifying the metabox for features as a media type
  *
- * @link http://moveplugins.com/doc/
+ * @link http://mintplugins.com/doc/
  * @since 1.0.0
  *
  * @package    MP Stacks Features
  * @subpackage Functions
  *
- * @copyright   Copyright (c) 2013, Move Plugins
+ * @copyright   Copyright (c) 2014, Mint Plugins
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author      Philip Johnston
  */
@@ -17,7 +17,7 @@
  * Add Features as a Media Type to the dropdown
  *
  * @since    1.0.0
- * @link     http://moveplugins.com/doc/
+ * @link     http://mintplugins.com/doc/
  * @param    array $args See link for description.
  * @return   void
  */
@@ -189,28 +189,3 @@ function mp_stacks_features_create_meta_box(){
 	$mp_stacks_features_meta_box = new MP_CORE_Metabox($mp_stacks_features_add_meta_box, $mp_stacks_features_items_array);
 }
 add_action('wp_loaded', 'mp_stacks_features_create_meta_box');
-
-/**
- * Add these options to the all_mp_stacks_meta array for MP Stacks
- */
-function mp_stacks_features_add_all_mp_stacks_meta( $all_mp_stacks_meta ){
-	
-	global $global_mp_stacks_features_items_array;
-	
-	//If mp_stack_features hasn't been added to the all plugins options array yet
-	if ( empty( $all_mp_stacks_meta['mp_stacks_features'] ) ){
-		
-		//Add it. For the title we use plugin_title_4325819681 so that if a meta key happens to be 'plugin'title' they don't get lost. 
-		//4325819681 is just a random string to make this unique
-		$all_mp_stacks_meta['mp_stacks_features'] = array('plugin_title_4325819681' => 'MP Stacks + Features');
-	}
-	
-	//Loop through each field and add it to the mp_stacks_features array of options
-	foreach ( $global_mp_stacks_features_items_array as $meta_option ){
-		//Add all of these options to the mp_stacks_features options array
-		array_push( $all_mp_stacks_meta['mp_stacks_features'], $meta_option );	
-	}
-	
-	return $all_mp_stacks_meta;
-}
-add_filter( 'mp_stacks_all_mp_stacks_meta', 'mp_stacks_features_add_all_mp_stacks_meta' );
