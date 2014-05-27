@@ -20,7 +20,17 @@
  * @return   void
  */
 function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
-				
+
+	//First Media Type
+	$mp_stacks_first_content_type = get_post_meta($post_id, 'brick_first_content_type', true);
+	
+	//Second Media Type
+	$mp_stacks_second_content_type = get_post_meta($post_id, 'brick_second_content_type', true);
+	
+	if ( $mp_stacks_first_content_type != 'features' && $mp_stacks_second_content_type != 'features' ){
+		return $css_output;	
+	}
+	
 	//Get Features Metabox Repeater Array
 	$features_repeaters = get_post_meta($post_id, 'mp_features_repeater', true);
 	
@@ -37,12 +47,32 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
 	$feature_icon_size = get_post_meta($post_id, 'feature_icon_size', true);
 	$feature_icon_size = empty( $feature_icon_size ) ? '30' : $feature_icon_size;
 	
+	//Features Icon Vertical Alignment
+	$feature_icon_vertical_alignment = get_post_meta( $post_id, 'feature_icon_vertical_alignment', true );
+	
+	//Features title size
+	$feature_title_size = get_post_meta($post_id, 'feature_title_size', true);
+	$feature_title_size = empty( $feature_title_size ) ? '130%' : $feature_title_size . 'px';
+	
+	//Features text size
+	$feature_text_size = get_post_meta($post_id, 'feature_text_size', true);
+	$feature_text_size = empty( $feature_text_size ) ? '100%' : $feature_text_size . 'px';
+	
 	//Feature alignment
 	$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
 	$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
-			
+	
+	//CSS for alignment
+	$css_display = $feature_alignment == 'left' ? 'table-cell' : 'inline-block';
+	
+	//Icon padding bottom
+	$icon_bottom_padding = $feature_alignment == 'left' ? '0' : '10';
+	
 	//Get Features Output
 	$css_features_output = '
+		#mp-brick-' . $post_id . ' .mp-stacks-features{ 
+			text-align: ' . $feature_alignment . ';
+		}
 		#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
 			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 			width:' . (100/$features_per_row) .'%;
@@ -53,11 +83,26 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
 		{ 
 			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 		}
-		#mp-brick-' . $post_id . ' .mp-stacks-features-icon{
+		#mp-brick-' . $post_id . ' .mp-stacks-features-icon-container{
+			display:' . $css_display . ';
 			width:' . $feature_icon_size . 'px;
+			padding-bottom: ' . $icon_bottom_padding . 'px;
+			vertical-align: ' . $feature_icon_vertical_alignment . ';
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-icon {
+			width: ' . $feature_icon_size . 'px;
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {
 			font-size:' . $feature_icon_size . 'px;
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-title-text-area{
+			display:' . $css_display . ';
+		}		
+		#mp-brick-' . $post_id . ' .mp-stacks-features-title {
+			font-size:' . $feature_title_size . ';
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-text {
+			font-size:' . $feature_text_size . ';
 		}
 		@media screen and (max-width: 600px){
 			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
@@ -114,80 +159,88 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 			foreach( $features_repeaters as $features_repeater ){
 							
 					$features_output .= '<div class="mp-stacks-feature">';
-		
-						//If the user has saved an open type
-						if ( !empty($features_repeater['feature_icon_link_type'])){
-							
-							//Set Image Open Type for Lightbox
-							if ( $features_repeater['feature_icon_link_type'] == 'lightbox'){
-								$class_name = ' mp-stacks-lightbox-link'; 
-								$target = '';
+					
+						$features_output .= '<div class="mp-stacks-feature-inner">';
+			
+							//If the user has saved an open type
+							if ( !empty($features_repeater['feature_icon_link_type'])){
+								
+								//Set Image Open Type for Lightbox
+								if ( $features_repeater['feature_icon_link_type'] == 'lightbox'){
+									$class_name = ' mp-stacks-lightbox-link'; 
+									$target = '';
+								}
+								else if($features_repeater['feature_icon_link_type'] == 'blank'){
+									$target = '_blank';
+									$class_name = '';	
+								}
 							}
-							else if($features_repeater['feature_icon_link_type'] == 'blank'){
-								$target = '_blank';
+							//If they haven't saved an open type
+							else{
 								$class_name = '';	
+								$target = '_parent';
 							}
-						}
-						//If they haven't saved an open type
-						else{
-							$class_name = '';	
-							$target = '_parent';
-						}
-						
-						$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
-						
-							$features_output .= '<div class="mp-stacks-features-icon">';
-								
-								//If we should use an image as the featured icon
-								if ( $features_repeater['feature_icon_type'] == 'feature_image' ){
-									$features_output .= '<img src="' . $features_repeater['feature_image'] . '" width="100%"/>';
-								}
-								//If we should use an icon from the icon font
-								else{
+							
+							$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
+							
+								$features_output .= '<div class="mp-stacks-features-icon-container">';
 									
-									$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
+									//If we should use an image as the featured icon
+									if ( $features_repeater['feature_icon_type'] == 'feature_image' ){
+										$features_output .= '<img src="' . $features_repeater['feature_image'] . '" width="100%"/>';
+									}
+									//If we should use an icon from the icon font
+									else{
+										
+										$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
+										
+											$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
+										
+										$features_output .= '</div>';
 									
-										$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
+									}
 									
+								$features_output .= '</div>';
+							
+							$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+													
+							$features_output .= $feature_alignment == 'center' ? '<div class="mp-stacks-features-clearedfix"></div>' : NULL;
+							
+							$features_output .= '<div class="mp-stacks-features-title-text-area">';
+							
+								//If there's a title
+								if ( !empty($features_repeater['feature_title']) ){
+									
+									$features_output .= '<div class="mp-stacks-features-title">';
+									
+										$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
+									
+											$features_output .= $features_repeater['feature_title'];
+											
+										$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+										
 									$features_output .= '</div>';
+									
+									//Add clear div to bump features below title and icon
+									$features_output .= '<div class="mp-stacks-features-clearedfix"></div>';
 								
 								}
 								
-							$features_output .= '</div>';
-						
-						$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
-												
-						$features_output .= $feature_alignment == 'center' ? '<div class="mp-stacks-features-clearedfix"></div>' : NULL;
-						
-						//If there's a title
-						if ( !empty($features_repeater['feature_title']) ){
-							
-							$features_output .= '<div class="mp-stacks-features-title">';
-							
-								$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
-							
-									$features_output .= $features_repeater['feature_title'];
+								//If there's a description
+								if ( !empty($features_repeater['feature_text']) ){
 									
-								$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+									$features_output .= '<div class="mp-stacks-features-text">';
+																	
+										$features_output .= html_entity_decode($features_repeater['feature_text']);
+											
+									$features_output .= '</div>';
+									
+								}
 								
 							$features_output .= '</div>';
-							
-							//Add clear div to bump features below title and icon
-							$features_output .= '<div class="mp-stacks-features-clearedfix"></div>';
+					
+						$features_output .= '</div>';
 						
-						}
-						
-						//If there's a description
-						if ( !empty($features_repeater['feature_title']) ){
-							
-							$features_output .= '<div class="mp-stacks-features-text">';
-															
-								$features_output .= html_entity_decode($features_repeater['feature_text']);
-									
-							$features_output .= '</div>';
-							
-						}
-				
 					$features_output .= '</div>';
 					
 					if ( $features_per_row == $counter ){

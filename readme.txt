@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
 Tested up to: 3.9
-Stable tag: 1.0.0.0
+Stable tag: 1.0.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.1 = May 26, 2014
+* CSS Tweaks, metabox performance upgrades, additional controls for padding etc
 
 = 1.0.0.0 =
 * Original release

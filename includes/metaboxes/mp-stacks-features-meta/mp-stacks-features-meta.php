@@ -21,7 +21,16 @@
  * @param    array $args See link for description.
  * @return   void
  */
-function mp_stacks_features_create_meta_box(){	
+function mp_stacks_features_create_meta_box(){
+	
+	//Get current page
+	$current_page = get_current_screen();
+	
+	//Only load if we are on an mp_brick page
+	if ( $current_page->id != 'mp_brick' ){
+		return;	
+	}
+	
 	/**
 	 * Array which stores all info about the new metabox
 	 *
@@ -33,17 +42,6 @@ function mp_stacks_features_create_meta_box(){
 		'metabox_context' => 'advanced', 
 		'metabox_priority' => 'low' 
 	);
-	
-	$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
-	$subject = file_get_contents( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( dirname( __FILE__ ) ) ) );
-	
-	preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
-	
-	$icons = array();
-
-	foreach($matches as $match){
-		$icons[$match[1]] = $match[1];
-	}	
 	
 	//If a stack id has been passed to the URL
 	if ( isset( $_GET['mp_stack_id'] ) ){
@@ -99,6 +97,28 @@ function mp_stacks_features_create_meta_box(){
 			'field_value' => '',
 		),
 		array(
+			'field_id'			=> 'feature_icon_vertical_alignment',
+			'field_title' 	=> __( 'Feature Icon Vertical Alignment', 'mp_stacks_features'),
+			'field_description' 	=> 'Should this icon sit vertically centered beside the feature text or align to the top of it?' ,
+			'field_type' 	=> 'select',
+			'field_value' => '',
+			'field_select_values' => array( 'middle' => __( 'Center', 'mp_stacks_features' ), 'top' => __( 'Top', 'mp_stacks_features' ), 'bottom' => __( 'Bottom', 'mp_stacks_features' ) ),
+		),
+		array(
+			'field_id'			=> 'feature_title_size',
+			'field_title' 	=> __( 'Feature Title Sizes', 'mp_stacks_features'),
+			'field_description' 	=> 'What should the font size of each feature\'s title be?' ,
+			'field_type' 	=> 'number',
+			'field_value' => '',
+		),
+		array(
+			'field_id'			=> 'feature_text_size',
+			'field_title' 	=> __( 'Feature Text Sizes', 'mp_stacks_features'),
+			'field_description' 	=> 'What should the font size of each feature\'s text area be?' ,
+			'field_type' 	=> 'number',
+			'field_value' => '',
+		),
+		array(
 			'field_id'			=> 'feature_description',
 			'field_title' 	=> __( '<br />Add Your Features Below', 'mp_stacks_features'),
 			'field_description' 	=> '<br />Open up the following areas to add/remove new features.' ,
@@ -128,7 +148,7 @@ function mp_stacks_features_create_meta_box(){
 			'field_description' 	=> 'Select the icon to use for this feature',
 			'field_type' 	=> 'iconfontpicker',
 			'field_value' => '',
-			'field_select_values' => $icons,
+			'field_select_values' => mp_stacks_features_get_font_awesome_icons(),
 			'field_repeater' => 'mp_features_repeater'
 		),
 		array(
@@ -151,7 +171,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_icon_link_type',
 			'field_title' 	=> __( 'Feature Icon Link\'s Open Type', 'mp_stacks_features'),
-			'field_description' 	=> 'Optional: Enter a URL which should be visited when the icon is clicked.',
+			'field_description' 	=> 'Optional: How should this link open?',
 			'field_type' 	=> 'select',
 			'field_value' => '',
 			'field_select_values' => array( 'lightbox' => __( 'Open in Lightbox', 'mp_stacks_features' ), 'parent' => __( 'Open in current Window/Tab', 'mp_stacks_features' ), 'blank' => __( 'Open in New Window/Tab', 'mp_stacks_features' ) ),
@@ -188,4 +208,4 @@ function mp_stacks_features_create_meta_box(){
 	global $mp_stacks_features_meta_box;
 	$mp_stacks_features_meta_box = new MP_CORE_Metabox($mp_stacks_features_add_meta_box, $mp_stacks_features_items_array);
 }
-add_action('wp_loaded', 'mp_stacks_features_create_meta_box');
+add_action('current_screen', 'mp_stacks_features_create_meta_box');

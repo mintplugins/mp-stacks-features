@@ -24,20 +24,24 @@
 .mp-stacks-features-icon:before {
 	font-size:30px;
 }
-.mp-stacks-features-icon{
+.mp-stacks-features-icon-container{
 	display: inline-block;
-	vertical-align:top;
+	vertical-align:middle;
+	text-align:center;
 }
 .mp-stacks-feature a{
 	text-decoration:none;
 }
-.mp-stacks-feature .mp-stacks-features-icon img{
+.mp-stacks-feature .mp-stacks-features-icon-container img{
 	margin:0px;	
 	display:inline-block;
 	vertical-align: top;
 }
+.mp-stacks-features-title-text-area{
+	display: inline-block;
+	vertical-align:middle;
+}
 .mp-stacks-features-title{
-	padding-top: 10px;
 	display: inline-block;
 	font-size: 130%;	
 }
@@ -45,6 +49,12 @@
 .mp-stacks-features-text{
 	display: inline-block;	
 	padding-top:10px;
+}
+.mp-stacks-features-text > p{
+	margin-bottom:10px;
+}
+.mp-stacks-features-text > p:last-child{
+	margin-bottom:0px;
 }
 .mp-stacks-features-clearedfix:after {
 	content: ".";

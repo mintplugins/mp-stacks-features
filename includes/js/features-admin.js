@@ -34,4 +34,16 @@ jQuery(document).ready(function($){
 		});
 	}
 	
+	//When a new feature gets duplicated
+	$(window).on('mp_core_duplicate_repeater_after', function(event, data){
+		
+		var containing_li = data[0];
+		
+		//Hide the icon and image upload fields
+		$( containing_li ).next( ".mp_features_repeater_repeater" ).find("[class$='feature_iconBBBBB'], [class*='feature_iconBBBBB ']").css('display', 'none');
+		$( containing_li ).next( ".mp_features_repeater_repeater" ).find("[class$='feature_imageBBBBB'], [class*='feature_imageBBBBB ']").css('display', 'none');
+		
+		
+	});
+	
 });
