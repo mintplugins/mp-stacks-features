@@ -19,15 +19,9 @@
  * @since    1.0.0
  * @return   void
  */
-function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
+function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $first_content_type, $second_content_type ){
 
-	//First Media Type
-	$mp_stacks_first_content_type = get_post_meta($post_id, 'brick_first_content_type', true);
-	
-	//Second Media Type
-	$mp_stacks_second_content_type = get_post_meta($post_id, 'brick_second_content_type', true);
-	
-	if ( $mp_stacks_first_content_type != 'features' && $mp_stacks_second_content_type != 'features' ){
+	if ( $first_content_type != 'features' && $second_content_type != 'features' ){
 		return $css_output;	
 	}
 	
@@ -115,7 +109,7 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id ){
 	return $css_features_output . $css_output;
 		
 }
-add_filter('mp_brick_additional_css', 'mp_stacks_brick_content_output_css_features', 10, 3);
+add_filter('mp_brick_additional_css', 'mp_stacks_brick_content_output_css_features', 10, 4);
 
 /**
  * This function hooks to the brick output. If it is supposed to be a 'feature', then it will output the features

@@ -27,7 +27,10 @@ function mp_stacks_features_create_meta_box(){
 	$current_page = get_current_screen();
 	
 	//Only load if we are on an mp_brick page
-	if ( $current_page->id != 'mp_brick' ){
+	if ( $current_page->id == 'mp_brick' || $current_page->id == 'settings_page_mp_stacks_create_template_page' ){
+		
+	}
+	else{
 		return;	
 	}
 	
@@ -107,28 +110,28 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_title_size',
 			'field_title' 	=> __( 'Feature Title Sizes', 'mp_stacks_features'),
-			'field_description' 	=> 'What should the font size of each feature\'s title be?' ,
+			'field_description' 	=> 'What should the font size of each feature\'s title be? (Pixels)' ,
 			'field_type' 	=> 'number',
 			'field_value' => '',
 		),
 		array(
 			'field_id'			=> 'feature_text_size',
 			'field_title' 	=> __( 'Feature Text Sizes', 'mp_stacks_features'),
-			'field_description' 	=> 'What should the font size of each feature\'s text area be?' ,
+			'field_description' 	=> __( 'What should the font size of each feature\'s text area be? (Pixels)', 'mp_stacks_features' ),
 			'field_type' 	=> 'number',
 			'field_value' => '',
 		),
 		array(
 			'field_id'			=> 'feature_description',
-			'field_title' 	=> __( '<br />Add Your Features Below', 'mp_stacks_features'),
-			'field_description' 	=> '<br />Open up the following areas to add/remove new features.' ,
+			'field_title' 	=> '<br />' . __( 'Add Your Features Below', 'mp_stacks_features'),
+			'field_description' 	=> '<br />' . __( 'Open up the following areas to add/remove new features.', 'mp_stacks_features'),
 			'field_type' 	=> 'basictext',
 			'field_value' => '',
 		),
 		array(
 			'field_id'			=> 'feature_title',
 			'field_title' 	=> __( 'Feature Title', 'mp_stacks_features'),
-			'field_description' 	=> 'Enter the title of this feature',
+			'field_description' 	=> __( 'Enter the title of this feature', 'mp_stacks_features' ),
 			'field_type' 	=> 'textbox',
 			'field_value' => '',
 			'field_repeater' => 'mp_features_repeater'
@@ -136,7 +139,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_icon_type',
 			'field_title' 	=> __( 'Feature Icon Type', 'mp_stacks_features'),
-			'field_description' 	=> 'Select the type of icon to use for this.',
+			'field_description' 	=> __( 'Select the type of icon to use for this.', 'mp_stacks_features' ),
 			'field_type' 	=> 'select',
 			'field_value' => '',
 			'field_select_values' => array('feature_icon' => 'Icon', 'feature_image' => 'Custom Image'),
@@ -145,7 +148,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_icon',
 			'field_title' 	=> __( 'Feature Icon', 'mp_stacks_features'),
-			'field_description' 	=> 'Select the icon to use for this feature',
+			'field_description' 	=> __( 'Select the icon to use for this feature', 'mp_stacks_features' ),
 			'field_type' 	=> 'iconfontpicker',
 			'field_value' => '',
 			'field_select_values' => mp_stacks_features_get_font_awesome_icons(),
@@ -154,7 +157,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_image',
 			'field_title' 	=> __( 'Feature Icon', 'mp_stacks_features'),
-			'field_description' 	=> 'Upload the icon image to use for this feature',
+			'field_description' 	=> __( 'Upload the icon image to use for this feature', 'mp_stacks_features' ),
 			'field_type' 	=> 'mediaupload',
 			'field_value' => '',
 			'field_repeater' => 'mp_features_repeater'
@@ -162,7 +165,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_icon_link',
 			'field_title' 	=> __( 'Feature Icon Link', 'mp_stacks_features'),
-			'field_description' 	=> 'Optional: Enter a URL which should be visited when the icon is clicked.',
+			'field_description' 	=> __( 'Optional: Enter a URL which should be visited when the icon is clicked.', 'mp_stacks_features' ),
 			'field_type' 	=> 'datalist',
 			'field_value' => '',
 			'field_select_values' => $brick_titles_in_stack,
@@ -171,7 +174,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_icon_link_type',
 			'field_title' 	=> __( 'Feature Icon Link\'s Open Type', 'mp_stacks_features'),
-			'field_description' 	=> 'Optional: How should this link open?',
+			'field_description' 	=> __( 'Optional: How should this link open?', 'mp_stacks_features' ),
 			'field_type' 	=> 'select',
 			'field_value' => '',
 			'field_select_values' => array( 'lightbox' => __( 'Open in Lightbox', 'mp_stacks_features' ), 'parent' => __( 'Open in current Window/Tab', 'mp_stacks_features' ), 'blank' => __( 'Open in New Window/Tab', 'mp_stacks_features' ) ),
@@ -180,7 +183,7 @@ function mp_stacks_features_create_meta_box(){
 		array(
 			'field_id'			=> 'feature_text',
 			'field_title' 	=> __( 'Feature Text (HTML Allowed)', 'mp_stacks_features'),
-			'field_description' 	=> 'Enter the text for this feature.',
+			'field_description' 	=> __( 'Enter the text for this feature.', 'mp_stacks_features' ),
 			'field_type' 	=> 'wp_editor',
 			'field_value' => '',
 			'field_repeater' => 'mp_features_repeater'
