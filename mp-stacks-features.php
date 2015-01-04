@@ -149,10 +149,14 @@ function mp_stacks_features_include_files(){
 		require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/metaboxes/mp-stacks-features-meta/mp-stacks-features-meta.php' );
 		
 		/**
-		 * Functions which assist with the creation of templates using this add-on
+		 * Add this add on to the list of Active MP Stacks Add Ons
 		 */
 		if ( function_exists('mp_stacks_developer_textdomain') ){
-			require( MP_STACKS_FEATURES_PLUGIN_DIR . 'includes/misc-functions/stack-template-functions.php' );
+			function mp_stacks_featured_add_active( $required_add_ons ){
+				$required_add_ons['mp_stacks_features'] = 'MP Stacks + Features';
+				return $required_add_ons;
+			}
+			add_filter( 'mp_stacks_active_add_ons', 'mp_stacks_featured_add_active' );
 		}
 		
 		/**

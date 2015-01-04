@@ -52,6 +52,9 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	$feature_text_size = get_post_meta($post_id, 'feature_text_size', true);
 	$feature_text_size = empty( $feature_text_size ) ? '100%' : $feature_text_size . 'px';
 	
+	//Feature spacing
+	$feature_spacing = mp_core_get_post_meta($post_id, 'feature_spacing', '20');
+	
 	//Feature alignment
 	$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
 	$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
@@ -71,6 +74,7 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
 			width:' . (100/$features_per_row) .'%;
 			text-align:' . $feature_alignment . ';
+			padding: ' . $feature_spacing . 'px;
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-feature a,
 		#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
@@ -168,6 +172,10 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 									$target = '_blank';
 									$class_name = '';	
 								}
+								else{
+									$class_name = '';	
+									$target = '_parent';	
+								}
 							}
 							//If they haven't saved an open type
 							else{
@@ -225,7 +233,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 									
 									$features_output .= '<div class="mp-stacks-features-text">';
 																	
-										$features_output .= html_entity_decode($features_repeater['feature_text']);
+										$features_output .= do_shortcode( html_entity_decode($features_repeater['feature_text']) );
 											
 									$features_output .= '</div>';
 									

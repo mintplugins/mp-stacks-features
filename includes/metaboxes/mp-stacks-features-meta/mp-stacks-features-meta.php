@@ -23,17 +23,6 @@
  */
 function mp_stacks_features_create_meta_box(){
 	
-	//Get current page
-	$current_page = get_current_screen();
-	
-	//Only load if we are on an mp_brick page
-	if ( $current_page->id == 'mp_brick' || $current_page->id == 'settings_page_mp_stacks_create_template_page' ){
-		
-	}
-	else{
-		return;	
-	}
-	
 	/**
 	 * Array which stores all info about the new metabox
 	 *
@@ -91,6 +80,13 @@ function mp_stacks_features_create_meta_box(){
 			'field_type' 	=> 'select',
 			'field_value' => '',
 			'field_select_values' => array( 'left' => 'Left', 'center' => 'Center' ),
+		),
+		array(
+			'field_id'			=> 'feature_spacing',
+			'field_title' 	=> __( 'Feature Spacing', 'mp_stacks_features'),
+			'field_description' 	=> 'How many pixels should be between features? Default: 20' ,
+			'field_type' 	=> 'number',
+			'field_value' => '20',
 		),
 		array(
 			'field_id'			=> 'feature_icon_size',
@@ -211,4 +207,4 @@ function mp_stacks_features_create_meta_box(){
 	global $mp_stacks_features_meta_box;
 	$mp_stacks_features_meta_box = new MP_CORE_Metabox($mp_stacks_features_add_meta_box, $mp_stacks_features_items_array);
 }
-add_action('current_screen', 'mp_stacks_features_create_meta_box');
+add_action('mp_brick_metabox', 'mp_stacks_features_create_meta_box');

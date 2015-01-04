@@ -35,6 +35,10 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 == Changelog ==
 
+= 1.0.0.3 = January 4, 2015
+* Added Feature Spacing
+* Added do_shortcode to feature text areas
+
 = 1.0.0.2 = July 24, 2014
 * Translation strings added to metabox
 * Compliance for mp-stacks-developer added
