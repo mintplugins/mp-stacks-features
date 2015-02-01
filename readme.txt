@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
-Tested up to: 3.9
-Stable tag: 1.0.0.3
+Tested up to: 4.1
+Stable tag: 1.0.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.4 = February 1, 2015
+* Removed un-needed JS as the core now has it.
+* Re-organized meta (showhiders) and added shadows/stroke control.
 
 = 1.0.0.3 = January 4, 2015
 * Added Feature Spacing
