@@ -65,6 +65,61 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	//Icon padding bottom
 	$icon_bottom_padding = $feature_alignment == 'left' ? '0' : '10';
 	
+	//Get the radius this image should be
+	$feature_icon_corner_radius = mp_core_get_post_meta( $post_id, 'feature_icon_corner_radius', 0 );
+	$radius_css = 'border-radius: ' . ( $feature_icon_corner_radius / 2 ) . '%; ';
+	
+	//Get the items a stroke should be applied to
+	$apply_strokes_to = json_decode( mp_core_get_post_meta( $post_id, 'feature_icon_stroke_apply_to' ) );	
+	$apply_strokes_to = is_array( $apply_strokes_to ) ? $apply_strokes_to : array();
+	$images_stroke = in_array( 'images', $apply_strokes_to ) ? true : false;
+	$icons_stroke = in_array( 'icons', $apply_strokes_to ) ? true : false;
+			
+	//Get the stroke css
+	$stroke_css = mp_core_stroke_css( $post_id, 'feature_icon_' );
+	
+	//Set the font size for icons fonts based on the stroke size (so there isn't overlap of the stroke over the icon)
+	$stroke_size = mp_core_get_post_meta( $post_id, 'feature_icon_stroke_size', 0 );
+	
+	//If the stroke should be applied to icon fonts
+	if ( $icons_stroke ){
+		$font_icon_padding = $stroke_size != 0 ? 13 : 0;
+		$font_icon_size = $stroke_size != 0 ? ( $feature_icon_size - ( ( $stroke_size * 2 ) + 26 ) ) : $feature_icon_size;
+		$font_icon_stroke_css = $stroke_css;
+	}
+	//If the stroke should not be applied to icon fonts
+	else{
+		$font_icon_padding = 0;
+		$font_icon_size = $feature_icon_size;
+		$font_icon_stroke_css = NULL;
+	}
+	
+	//If the stroke should be applied to images
+	if ( $images_stroke ){
+		$images_stroke_css = $stroke_css;
+	}
+	//If the stroke should not be applied to images
+	else{
+		$images_stroke_css = NULL;
+	}
+	
+	//Get the items a Drop Shadow should be applied to
+	$apply_shadows_to = json_decode( mp_core_get_post_meta( $post_id, 'feature_shadow_apply_to' ) );	
+	$apply_shadows_to = is_array( $apply_shadows_to ) ? $apply_shadows_to : array();
+	$images_shadow = in_array( 'images', $apply_shadows_to ) ? true : false;
+	$icons_shadow = in_array( 'icons', $apply_shadows_to ) ? true : false;
+	$titles_shadow = in_array( 'titles', $apply_shadows_to ) ? true : false;
+	$descriptions_shadow = in_array( 'descriptions', $apply_shadows_to ) ? true : false;
+			
+	//Get the stroke css
+	$shadow_css = mp_core_drop_shadow_css( $post_id, 'feature_' );
+		
+	//If the shadow should be applied to icon fonts
+	$font_icon_shadow_css = $icons_shadow ? $shadow_css : NULL;
+	$images_shadow_css = $images_shadow ? $shadow_css : NULL;
+	$titles_shadow_css = $titles_shadow ? $shadow_css : NULL;
+	$descriptions_shadow_css = $descriptions_shadow ? $shadow_css : NULL;
+		
 	//Get Features Output
 	$css_features_output = '
 		#mp-brick-' . $post_id . ' .mp-stacks-features{ 
@@ -90,17 +145,24 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 		#mp-brick-' . $post_id . ' .mp-stacks-features-icon {
 			width: ' . $feature_icon_size . 'px;
 		}
-		#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {
-			font-size:' . $feature_icon_size . 'px;
+		#mp-brick-' . $post_id . ' .mp-stacks-feature img{' . 
+			$radius_css . $images_shadow_css . $images_stroke_css . '
+			box-sizing: border-box;
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-features-icon:before {' . 
+			$radius_css . $font_icon_shadow_css . $font_icon_stroke_css . '
+			font-size:' . $font_icon_size . 'px;
+			padding:' . $font_icon_padding . 'px;
+			box-sizing: border-box;
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-features-title-text-area{
 			display:' . $css_display . ';
 		}		
 		#mp-brick-' . $post_id . ' .mp-stacks-features-title {
-			font-size:' . $feature_title_size . ';
+			font-size:' . $feature_title_size . '; ' . $titles_shadow_css . '
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-features-text {
-			font-size:' . $feature_text_size . ';
+			font-size:' . $feature_text_size . '; ' . $descriptions_shadow_css  . '
 		}
 		@media screen and (max-width: 600px){
 			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
@@ -109,11 +171,12 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 		}';
 		
 	$css_features_output .= $feature_alignment != 'left' ? NULL : '#mp-brick-' . $post_id . ' .mp-stacks-features-icon{ margin: 0px 10px 0px 0px; }';
-	
+		
 	return $css_features_output . $css_output;
 		
 }
 add_filter('mp_brick_additional_css', 'mp_stacks_brick_content_output_css_features', 10, 4);
+
 
 /**
  * This function hooks to the brick output. If it is supposed to be a 'feature', then it will output the features
@@ -182,29 +245,29 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 								$class_name = '';	
 								$target = '_parent';
 							}
-							
-							$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
-							
+														
 								$features_output .= '<div class="mp-stacks-features-icon-container">';
 									
-									//If we should use an image as the featured icon
-									if ( $features_repeater['feature_icon_type'] == 'feature_image' ){
-										$features_output .= '<img src="' . $features_repeater['feature_image'] . '" width="100%"/>';
-									}
-									//If we should use an icon from the icon font
-									else{
-										
-										$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
-										
-											$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
-										
-										$features_output .= '</div>';
+									$features_output .= !empty($features_repeater['feature_icon_link']) ? '<a href="' . $features_repeater['feature_icon_link'] . '" class="mp-stacks-features-icon-link ' . $class_name . '" target="' . $target . '">' : NULL;
 									
-									}
+										//If we should use an image as the featured icon
+										if ( $features_repeater['feature_icon_type'] == 'feature_image' ){
+											$features_output .= '<img src="' . $features_repeater['feature_image'] . '" width="100%"/>';
+										}
+										//If we should use an icon from the icon font
+										else{
+											
+											$features_output .= '<div class="mp-stacks-features-icon ' . $features_repeater['feature_icon'] . '">';
+											
+												$features_output .= '<div class="mp-stacks-features-icon-title">' . $features_repeater['feature_title'] . '</div>';
+											
+											$features_output .= '</div>';
+										
+										}
 									
+									$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
+								
 								$features_output .= '</div>';
-							
-							$features_output .= !empty($features_repeater['feature_icon_link']) ? '</a>' : NULL;
 													
 							$features_output .= $feature_alignment == 'center' ? '<div class="mp-stacks-features-clearedfix"></div>' : NULL;
 							
