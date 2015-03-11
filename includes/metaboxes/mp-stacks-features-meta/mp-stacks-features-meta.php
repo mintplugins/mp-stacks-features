@@ -184,6 +184,14 @@ function mp_stacks_features_create_meta_box(){
 			'field_showhider' => 'feature_text_design_showhider'
 		),
 		array(
+			'field_id'			=> 'feature_text_area_max_width',
+			'field_title' 	=> __( 'Feature Description Max-Width', 'mp_stacks_features'),
+			'field_description' 	=> __( 'If you want to make the text description area\'s width smaller than the total "feature\'s" width, enter that width here.', 'mp_stacks_features' ),
+			'field_type' 	=> 'number',
+			'field_value' => '',
+			'field_showhider' => 'feature_text_design_showhider'
+		),
+		array(
 			'field_id'			=> 'feature_icon_design_showhider',
 			'field_title' 	=> __( 'Feature Icon Design Settings', 'mp_stacks_features'),
 			'field_description' 	=> '<br />Choose the overall settings for your features' ,

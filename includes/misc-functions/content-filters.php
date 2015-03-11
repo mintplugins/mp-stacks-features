@@ -35,14 +35,14 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	
 	//Features per row
 	$features_per_row = get_post_meta($post_id, 'features_per_row', true);
-	$features_per_row = empty( $features_per_row ) ? '2' : $features_per_row;
+	$features_per_row = empty( $features_per_row ) ? '4' : $features_per_row;
 	
 	//Features icon size
 	$feature_icon_size = get_post_meta($post_id, 'feature_icon_size', true);
 	$feature_icon_size = empty( $feature_icon_size ) ? '30' : $feature_icon_size;
 	
 	//Features Icon Vertical Alignment
-	$feature_icon_vertical_alignment = get_post_meta( $post_id, 'feature_icon_vertical_alignment', true );
+	$feature_icon_vertical_alignment = mp_core_get_post_meta( $post_id, 'feature_icon_vertical_alignment', 'middle' );
 	
 	//Features title size
 	$feature_title_size = get_post_meta($post_id, 'feature_title_size', true);
@@ -52,12 +52,15 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	$feature_text_size = get_post_meta($post_id, 'feature_text_size', true);
 	$feature_text_size = empty( $feature_text_size ) ? '100%' : $feature_text_size . 'px';
 	
+	//Feature text area's max-width
+	$feature_text_area_max_width = mp_core_get_post_meta( $post_id, 'feature_text_area_max_width', 'none' );
+	$feature_text_area_max_width = $feature_text_area_max_width == 'none' ? '' : 'max-width:' . $feature_text_area_max_width . 'px;';
+	
 	//Feature spacing
 	$feature_spacing = mp_core_get_post_meta($post_id, 'feature_spacing', '20');
 	
 	//Feature alignment
-	$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
-	$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
+	$feature_alignment = mp_core_get_post_meta($post_id, 'feature_alignment', 'center');
 	
 	//CSS for alignment
 	$css_display = $feature_alignment == 'left' ? 'table-cell' : 'inline-block';
@@ -119,6 +122,9 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	$images_shadow_css = $images_shadow ? $shadow_css : NULL;
 	$titles_shadow_css = $titles_shadow ? $shadow_css : NULL;
 	$descriptions_shadow_css = $descriptions_shadow ? $shadow_css : NULL;
+	
+	//Feature text color:
+	$feature_text_color = mp_core_get_post_meta($post_id, 'feature_text_color', true);
 		
 	//Get Features Output
 	$css_features_output = '
@@ -163,6 +169,7 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-features-text {
 			font-size:' . $feature_text_size . '; ' . $descriptions_shadow_css  . '
+			' . $feature_text_area_max_width . '
 		}
 		@media screen and (max-width: 600px){
 			#mp-brick-' . $post_id . ' .mp-stacks-feature{ 
@@ -205,7 +212,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 		$feature_icon_size = empty( $feature_icon_size ) ? '30' : $feature_icon_size;
 		
 		//Feature alignment
-		$feature_alignment = get_post_meta($post_id, 'feature_alignment', true);
+		$feature_alignment = mp_core_get_post_meta($post_id, 'feature_alignment', 'center' );
 		$feature_alignment = empty( $feature_alignment ) ? 'left' : $feature_alignment;
 		
 		//Get Features Output
