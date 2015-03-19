@@ -205,7 +205,7 @@ function mp_stacks_brick_content_output_features($default_content_output, $mp_st
 		
 		//Features per row
 		$features_per_row = get_post_meta($post_id, 'features_per_row', true);
-		$features_per_row = empty( $features_per_row ) ? '2' : $features_per_row;
+		$features_per_row = empty( $features_per_row ) ? '4' : $features_per_row;
 		
 		//Features icon size
 		$feature_icon_size = get_post_meta($post_id, 'feature_icon_size', true);

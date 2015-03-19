@@ -3,7 +3,7 @@
 Plugin Name: MP Stacks + Features
 Plugin URI: http://mintplugins.com
 Description: Content-Type Add-on for MP Stacks which displays "features" about an item in a brick.
-Version: 1.0.0.5
+Version: 1.0.0.6
 Author: Mint Plugins
 Author URI: http://mintplugins.com
 Text Domain: mp_stacks_features
@@ -34,7 +34,7 @@ License: GPL2
 */
 // Plugin version
 if( !defined( 'MP_STACKS_FEATURES_VERSION' ) )
-	define( 'MP_STACKS_FEATURES_VERSION', '1.0.0.5' );
+	define( 'MP_STACKS_FEATURES_VERSION', '1.0.0.6' );
 
 // Plugin Folder URL
 if( !defined( 'MP_STACKS_FEATURES_PLUGIN_URL' ) )
