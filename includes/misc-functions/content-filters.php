@@ -25,6 +25,12 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 		return $css_output;	
 	}
 	
+	//Enqueue Font Awesome CSS
+	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+		
+	//Enqueue features CSS
+	wp_enqueue_style( 'mp_stacks_features_css', plugins_url( 'css/features.css', dirname( __FILE__ ) ) );
+	
 	//Get Features Metabox Repeater Array
 	$features_repeaters = get_post_meta($post_id, 'mp_features_repeater', true);
 	
@@ -141,6 +147,9 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 		#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
 		{ 
 			color:' . get_post_meta($post_id, 'feature_text_color', true) . ';
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-feature-inner{
+			display:' . $css_display . ';
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-features-icon-container{
 			display:' . $css_display . ';
