@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.0.0.6
+Tested up to: 4.2
+Stable tag: 1.0.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,12 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.7 = September 17, 2015
+* Font awesome css vertical align changed to "middle" for icons.
+* Brick Metabox controls now load using ajax.
+* Front-End Scripts now enqueued only when needed.
+* Features Conten-Type is now centered by default when it is selected. Users can still change this alginment if needed.
 
 = 1.0.0.6 = March 19, 2015
 * Fixed another issue with the default number of posts per row. It was defaulting to 2 even though it should have been 4.
