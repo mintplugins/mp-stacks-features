@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
-Tested up to: 4.2
-Stable tag: 1.0.0.7
+Tested up to: 4.3
+Stable tag: 1.0.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.8 = October 26, 2015
+* Upgrade to use Font Awesome 4.4.0 and use version in MP Stacks
 
 = 1.0.0.7 = September 17, 2015
 * Font awesome css vertical align changed to "middle" for icons.
