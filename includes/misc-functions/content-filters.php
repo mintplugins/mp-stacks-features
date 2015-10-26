@@ -26,7 +26,7 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 	}
 	
 	//Enqueue Font Awesome CSS
-	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	wp_enqueue_style( 'fontawesome',  MP_STACKS_PLUGIN_URL . 'includes/fonts/font-awesome/css/font-awesome.css?ver=' . MP_STACKS_VERSION );
 		
 	//Enqueue features CSS
 	wp_enqueue_style( 'mp_stacks_features_css', plugins_url( 'css/features.css', dirname( __FILE__ ) ) );

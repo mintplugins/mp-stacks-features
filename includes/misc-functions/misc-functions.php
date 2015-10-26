@@ -37,7 +37,6 @@ function mp_stacks_features_get_font_awesome_icons(){
 	
 	//Get all font styles in the css document and put them in an array
 	$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
-	//$subject = file_get_contents( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
 	
 	$args = array(
 		'timeout'     => 5,
@@ -54,7 +53,7 @@ function mp_stacks_features_get_font_awesome_icons(){
 		'filename'    => null
 	); 
 
-	$response = wp_remote_retrieve_body( wp_remote_get( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ), $args ) );
+	$response = wp_remote_retrieve_body( wp_remote_get( MP_STACKS_PLUGIN_URL . 'includes/fonts/font-awesome/css/font-awesome.css?ver=' . MP_STACKS_VERSION, $args ) );
 	
 	preg_match_all($pattern, $response, $matches, PREG_SET_ORDER);
 	
