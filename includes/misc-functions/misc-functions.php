@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Functions used to work with the MP Stacks Developer Plugin
  *
@@ -12,7 +12,7 @@
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author      Philip Johnston
  */
- 
+
 /**
  * Make Features Content Type Centered by default
  *
@@ -22,11 +22,11 @@
  * @param    $centered_content_types array - An array containing a string for each content-type that should default to centered brick alignment.
  */
 function mp_stacks_features_centered_by_default( $centered_content_types ){
-	
+
 	$centered_content_types['features'] = 'features';
-	
+
 	return $centered_content_types;
-	
+
 }
 add_filter( 'mp_stacks_centered_content_types', 'mp_stacks_features_centered_by_default' );
 
@@ -34,34 +34,24 @@ add_filter( 'mp_stacks_centered_content_types', 'mp_stacks_features_centered_by_
  * Function which returns an array of font awesome icons
  */
 function mp_stacks_features_get_font_awesome_icons(){
-	
-	//Get all font styles in the css document and put them in an array
-	$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
-	
-	$args = array(
-		'timeout'     => 5,
-		'redirection' => 5,
-		'httpversion' => '1.0',
-		'blocking'    => true,
-		'headers'     => array(),
-		'cookies'     => array(),
-		'body'        => null,
-		'compress'    => false,
-		'decompress'  => true,
-		'sslverify'   => false,
-		'stream'      => false,
-		'filename'    => null
-	); 
 
-	$response = wp_remote_retrieve_body( wp_remote_get( MP_STACKS_PLUGIN_URL . 'includes/fonts/font-awesome/css/font-awesome.css?ver=' . MP_STACKS_VERSION, $args ) );
-	
-	preg_match_all($pattern, $response, $matches, PREG_SET_ORDER);
-	
-	$icons = array();
+    //Get all font styles in the css document and put them in an array
+    $pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
 
-	foreach($matches as $match){
-		$icons[$match[1]] = $match[1];
-	}
-	
-	return $icons;
+    $path = MP_STACKS_PLUGIN_DIR . 'includes/fonts/font-awesome/css/font-awesome.css';
+
+    // We gotta get fancy here to include the CSS the way we need it. Standard wp_remote_get methods fail because it's local
+    ob_start();
+    include( $path );
+    $response = ob_get_clean();
+
+    preg_match_all($pattern, $response, $matches, PREG_SET_ORDER);
+
+    $icons = array();
+
+    foreach($matches as $match){
+        $icons[$match[1]] = $match[1];
+    }
+
+    return $icons;
 }
