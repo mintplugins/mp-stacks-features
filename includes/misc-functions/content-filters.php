@@ -7,7 +7,7 @@
  * @package    MP Stacks Features
  * @subpackage Functions
  *
- * @copyright  Copyright (c) 2014, Mint Plugins
+ * @copyright  Copyright (c) 2016, Mint Plugins
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
@@ -142,6 +142,11 @@ function mp_stacks_brick_content_output_css_features( $css_output, $post_id, $fi
 			width:' . (100/$features_per_row) .'%;
 			text-align:' . $feature_alignment . ';
 			padding: ' . $feature_spacing . 'px;
+		}
+		#mp-brick-' . $post_id . ' .mp-stacks-feature .mp-stacks-features-text,
+		#mp-brick-' . $post_id . ' .mp-stacks-feature .mp-stacks-feature-inner,
+		#mp-brick-' . $post_id . ' .mp-stacks-feature .mp-stacks-feature-inner > *{
+			max-width:100%;
 		}
 		#mp-brick-' . $post_id . ' .mp-stacks-feature a,
 		#mp-brick-' . $post_id . ' .mp-stacks-feature a:hover
