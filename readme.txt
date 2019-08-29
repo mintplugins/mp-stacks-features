@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: message bar, header
 Requires at least: 3.5
-Tested up to: 4.9.4
-Stable tag: 1.0.0.9
+Tested up to: 5.2.2
+Stable tag: 1.0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.1.0 = August 29, 2019
+* Switch usage of wp_editor for simple textarea field due to Gutenberg incompatibilities with TinyMCE and repeating fields.
 
 = 1.0.0.9 = March 9, 2018
 * Set features elemtents max-width to 100%
