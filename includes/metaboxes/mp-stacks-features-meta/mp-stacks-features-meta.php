@@ -12,7 +12,7 @@
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author      Philip Johnston
  */
- 
+
 /**
  * Add Features as a Media Type to the dropdown
  *
@@ -22,32 +22,32 @@
  * @return   void
  */
 function mp_stacks_features_create_meta_box(){
-	
+
 	/**
 	 * Array which stores all info about the new metabox
 	 *
 	 */
 	$mp_stacks_features_add_meta_box = array(
-		'metabox_id' => 'mp_stacks_features_metabox', 
-		'metabox_title' => __( '"Features" Content-Type', 'mp_stacks_features'), 
-		'metabox_posttype' => 'mp_brick', 
-		'metabox_context' => 'advanced', 
+		'metabox_id' => 'mp_stacks_features_metabox',
+		'metabox_title' => __( '"Features" Content-Type', 'mp_stacks_features'),
+		'metabox_posttype' => 'mp_brick',
+		'metabox_context' => 'advanced',
 		'metabox_priority' => 'low' ,
 		'metabox_content_via_ajax' => true,
 	);
-	
+
 	//If a stack id has been passed to the URL
 	if ( isset( $_GET['mp_stack_id'] ) ){
-				
+
 		//Get all the brick titles in this stack
 		$brick_titles_in_stack = mp_stacks_get_brick_titles_in_stack( $_GET['mp_stack_id'] );
-		
+
 	}
 	else{
-		
+
 		$brick_titles_in_stack = array();
-	}	
-	
+	}
+
 	/**
 	 * Array which stores all info about the options within the metabox
 	 *
@@ -100,13 +100,13 @@ function mp_stacks_features_create_meta_box(){
 				'field_type' 	=> 'multiple_checkboxes',
 				'field_value' => '',
 				'field_select_values' => array(
-					'icons' => __( 'Icons', 'mp_stacks_features' ), 
-					'images' => __( 'Custom Images', 'mp_stacks_features' ), 
-					'titles' => __( 'Feature Titles', 'mp_stacks_features' ), 
-					'descriptions' => __( 'Feature Descriptions', 'mp_stacks_features' ), 
+					'icons' => __( 'Icons', 'mp_stacks_features' ),
+					'images' => __( 'Custom Images', 'mp_stacks_features' ),
+					'titles' => __( 'Feature Titles', 'mp_stacks_features' ),
+					'descriptions' => __( 'Feature Descriptions', 'mp_stacks_features' ),
 				),
 				'field_showhider' => 'feature_icon_dropshadow_showhider',
-				
+
 			),
 			array(
 				'field_id'			=> 'feature_shadow_x',
@@ -115,7 +115,7 @@ function mp_stacks_features_create_meta_box(){
 				'field_type' 	=> 'input_range',
 				'field_value' => '50',
 				'field_showhider' => 'feature_icon_dropshadow_showhider',
-				
+
 			),
 			array(
 				'field_id'			=> 'feature_shadow_y',
@@ -124,7 +124,7 @@ function mp_stacks_features_create_meta_box(){
 				'field_type' 	=> 'input_range',
 				'field_value' => '50',
 				'field_showhider' => 'feature_icon_dropshadow_showhider',
-				
+
 			),
 			array(
 				'field_id'			=> 'feature_shadow_blur',
@@ -133,7 +133,7 @@ function mp_stacks_features_create_meta_box(){
 				'field_type' 	=> 'input_range',
 				'field_value' => '50',
 				'field_showhider' => 'feature_icon_dropshadow_showhider',
-				
+
 			),
 			array(
 				'field_id'			=> 'feature_shadow_color',
@@ -142,7 +142,7 @@ function mp_stacks_features_create_meta_box(){
 				'field_type' 	=> 'colorpicker',
 				'field_value' => '#000',
 				'field_showhider' => 'feature_icon_dropshadow_showhider',
-				
+
 			),
 			array(
 				'field_id'			=> 'feature_shadow_opacity',
@@ -239,11 +239,11 @@ function mp_stacks_features_create_meta_box(){
 					'field_type' 	=> 'multiple_checkboxes',
 					'field_value' => '',
 					'field_select_values' => array(
-						'icons' => __( 'Icons', 'mp_stacks_features' ), 
-						'images' => __( 'Images uploaded in place of Icons', 'mp_stacks_features' ), 
+						'icons' => __( 'Icons', 'mp_stacks_features' ),
+						'images' => __( 'Images uploaded in place of Icons', 'mp_stacks_features' ),
 					),
 					'field_showhider' => 'feature_icon_stroke_showhider',
-					
+
 				),
 				array(
 					'field_id'			=> 'feature_icon_stroke_size',
@@ -252,7 +252,7 @@ function mp_stacks_features_create_meta_box(){
 					'field_type' 	=> 'input_range',
 					'field_value' => '0',
 					'field_showhider' => 'feature_icon_stroke_showhider',
-					
+
 				),
 				array(
 					'field_id'			=> 'feature_icon_stroke_color',
@@ -261,7 +261,7 @@ function mp_stacks_features_create_meta_box(){
 					'field_type' 	=> 'colorpicker',
 					'field_value' => '#fff',
 					'field_showhider' => 'feature_icon_stroke_showhider',
-					
+
 				),
 				array(
 					'field_id'			=> 'feature_icon_stroke_opacity',
@@ -270,7 +270,7 @@ function mp_stacks_features_create_meta_box(){
 					'field_type' 	=> 'input_range',
 					'field_value' => '100',
 					'field_showhider' => 'feature_icon_stroke_showhider',
-					
+
 				),
 		array(
 			'field_id'			=> 'feature_description',
@@ -316,7 +316,7 @@ function mp_stacks_features_create_meta_box(){
 			'field_repeater' => 'mp_features_repeater',
 			'field_conditional_id' => 'feature_icon_type',
 			'field_conditional_values' => array( 'feature_image' )
-		),	
+		),
 		array(
 			'field_id'			=> 'feature_icon_link',
 			'field_title' 	=> __( 'Feature Icon Link', 'mp_stacks_features'),
@@ -339,27 +339,27 @@ function mp_stacks_features_create_meta_box(){
 			'field_id'			=> 'feature_text',
 			'field_title' 	=> __( 'Feature Text (HTML Allowed)', 'mp_stacks_features'),
 			'field_description' 	=> __( 'Enter the text for this feature.', 'mp_stacks_features' ),
-			'field_type' 	=> 'wp_editor',
+			'field_type' 	=> 'textarea',
 			'field_value' => '',
 			'field_repeater' => 'mp_features_repeater'
 		),
 	);
-	
-	
+
+
 	/**
 	 * Custom filter to allow for add-on plugins to hook in their own data for add_meta_box array
 	 */
 	$mp_stacks_features_add_meta_box = has_filter('mp_stacks_features_meta_box_array') ? apply_filters( 'mp_stacks_features_meta_box_array', $mp_stacks_features_add_meta_box) : $mp_stacks_features_add_meta_box;
-	
+
 	//Globalize the and populate mp_stacks_features_items_array (do this before filter hooks are run)
 	global $global_mp_stacks_features_items_array;
 	$global_mp_stacks_features_items_array = $mp_stacks_features_items_array;
-	
+
 	/**
-	 * Custom filter to allow for add on plugins to hook in their own extra fields 
+	 * Custom filter to allow for add on plugins to hook in their own extra fields
 	 */
 	$mp_stacks_features_items_array = has_filter('mp_stacks_features_items_array') ? apply_filters( 'mp_stacks_features_items_array', $mp_stacks_features_items_array) : $mp_stacks_features_items_array;
-	
+
 	/**
 	 * Create Metabox class
 	 */
